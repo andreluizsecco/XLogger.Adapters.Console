@@ -1,17 +1,21 @@
 using XLogger.Adapters.Console;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace XLogger
 {
     public static class ConsoleLoggerHubExtensions
     {
-        public static ILoggerHub AddConsole(this ILoggerHub hub)
+        private static ILoggerHub AddConsole(ILoggerHub hub, IConsoleLogger logger)
         {
-            var logger = new ConsoleLogger();
             hub.Services.AddSingleton<IConsoleLogger>(logger);
             return hub.AddLogger(logger);
         }
 
-        //TODO: Create extension method to add Console adapter with your settings
+        public static ILoggerHub AddConsole(this ILoggerHub hub) =>
+            AddConsole(hub, new ConsoleLogger());
+
+        public static ILoggerHub AddConsole(this ILoggerHub hub, Action<ConsoleLoggerOptions> options) =>
+            AddConsole(hub, new ConsoleLogger(options));
     }
 }
