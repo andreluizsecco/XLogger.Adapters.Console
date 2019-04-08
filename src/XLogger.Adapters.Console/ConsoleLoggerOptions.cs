@@ -14,7 +14,7 @@ namespace XLogger.Adapters.Console
             var consoleConfiguration = configuration.GetSection("XLogger:Console");
             this.LogLevel = (LogLevel)int.Parse(consoleConfiguration[nameof(LogLevel)] ?? this.LogLevel.ToString());
             this.OnDemand = bool.Parse(consoleConfiguration[nameof(OnDemand)] ?? this.OnDemand.ToString());
-            this.DateTimeFormat = consoleConfiguration[nameof(DateTimeFormat) ?? this.DateTimeFormat];
+            this.DateTimeFormat = consoleConfiguration[nameof(DateTimeFormat)] ?? this.DateTimeFormat;
         }
     }
 }
