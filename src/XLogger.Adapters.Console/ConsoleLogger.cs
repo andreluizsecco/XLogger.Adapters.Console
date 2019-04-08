@@ -11,12 +11,15 @@ namespace XLogger.Adapters.Console
         public ConsoleLogger() =>
             Options = new ConsoleLoggerOptions();
 
+        public ConsoleLogger(ConsoleLoggerOptions options) =>
+            Options = options;
+
         public ConsoleLogger(Action<ConsoleLoggerOptions> options) : this() =>
             options.Invoke((ConsoleLoggerOptions)Options);
 
         public IDisposable BeginScope<TState>(TState state) => null;
 
-        private void Write<Tstate>(LogLevel logLevel, Tstate state, Exception exception, Func<Tstate, Exception, object> formatter = null)
+        public void Write<Tstate>(LogLevel logLevel, Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null)
         {
             if (formatter != null)
                 System.Console.WriteLine(formatter.Invoke(state, exception));
@@ -41,9 +44,6 @@ namespace XLogger.Adapters.Console
         public void Debug<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
             Write(LogLevel.Debug, state, exception, formatter);
 
-        public void Critical<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
-            Write(LogLevel.Critical, state, exception, formatter);
-
         public void Information<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
             Write(LogLevel.Information, state, exception, formatter);
 
@@ -52,6 +52,9 @@ namespace XLogger.Adapters.Console
 
         public void Error<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
             Write(LogLevel.Error, state, exception, formatter);
+
+        public void Critical<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
+            Write(LogLevel.Critical, state, exception, formatter);
 
         public void Dispose() { }
     }

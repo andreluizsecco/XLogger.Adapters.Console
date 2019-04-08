@@ -12,8 +12,12 @@ namespace XLogger
             return hub.AddLogger(logger);
         }
 
-        public static ILoggerHub AddConsole(this ILoggerHub hub) =>
-            AddConsole(hub, new ConsoleLogger());
+        public static ILoggerHub AddConsole(this ILoggerHub hub)
+        {
+            var options = new ConsoleLoggerOptions();
+            options.ReadFromConfiguration(hub.Configuration);
+            return AddConsole(hub, new ConsoleLogger(options));
+        }
 
         public static ILoggerHub AddConsole(this ILoggerHub hub, Action<ConsoleLoggerOptions> options) =>
             AddConsole(hub, new ConsoleLogger(options));
