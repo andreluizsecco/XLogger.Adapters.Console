@@ -17,44 +17,41 @@ namespace XLogger.Adapters.Console
         public ConsoleLogger(Action<ConsoleLoggerOptions> options) : this() =>
             options.Invoke((ConsoleLoggerOptions)Options);
 
-        public IDisposable BeginScope<TState>(TState state) => null;
+        public IDisposable BeginScope<TData>(TData data) => null;
 
-        public void Write<Tstate>(LogLevel logLevel, Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null)
+        public void Write<TData>(LogLevel logLevel, TData data, Exception exception = null, Func<TData, Exception, object> formatter = null)
         {
             if (formatter != null)
-                System.Console.WriteLine(formatter.Invoke(state, exception));
+                System.Console.WriteLine(formatter.Invoke(data, exception));
             else
-            {
-                var dateTime = string.IsNullOrEmpty(Options.DateTimeFormat)? 
-                    DateTime.Now.ToLocalTime().ToString() :
-                    DateTime.Now.ToString(Options.DateTimeFormat);
-
-                System.Console.WriteLine($"{dateTime} [{logLevel.ToString()}] {state}");
-                if (exception != null)
-                    System.Console.WriteLine(exception.ToString());
-            }
+                System.Console.WriteLine(Helpers.ConsoleHelper.FormatOutput((Options as ConsoleLoggerOptions).OutputFormat, logLevel, data, exception));
         }
 
-        public void Write<Tstate>(LogLevel logLevel, EventId eventId, Tstate state, Exception exception, Func<Tstate, Exception, string> formatter) =>
-            Write(logLevel, state, exception);
+        public void Write<TData>(LogLevel logLevel, EventId eventId, TData data, Exception exception, Func<TData, Exception, string> formatter)
+        {
+            if (formatter != null)
+                Write(logLevel, formatter(data, exception), exception);
+            else
+                Write(logLevel, data, exception);
+        }
 
-        public void Trace<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
-            Write(LogLevel.Trace, state, exception, formatter);
+        public void Trace<TData>(TData data, Exception exception = null, Func<TData, Exception, object> formatter = null) =>
+            Write(LogLevel.Trace, data, exception, formatter);
 
-        public void Debug<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
-            Write(LogLevel.Debug, state, exception, formatter);
+        public void Debug<TData>(TData data, Exception exception = null, Func<TData, Exception, object> formatter = null) =>
+            Write(LogLevel.Debug, data, exception, formatter);
 
-        public void Information<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
-            Write(LogLevel.Information, state, exception, formatter);
+        public void Information<TData>(TData data, Exception exception = null, Func<TData, Exception, object> formatter = null) =>
+            Write(LogLevel.Information, data, exception, formatter);
 
-        public void Warning<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
-            Write(LogLevel.Warning, state, exception, formatter);
+        public void Warning<TData>(TData data, Exception exception = null, Func<TData, Exception, object> formatter = null) =>
+            Write(LogLevel.Warning, data, exception, formatter);
 
-        public void Error<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
-            Write(LogLevel.Error, state, exception, formatter);
+        public void Error<TData>(TData data, Exception exception = null, Func<TData, Exception, object> formatter = null) =>
+            Write(LogLevel.Error, data, exception, formatter);
 
-        public void Critical<Tstate>(Tstate state, Exception exception = null, Func<Tstate, Exception, object> formatter = null) =>
-            Write(LogLevel.Critical, state, exception, formatter);
+        public void Critical<TData>(TData data, Exception exception = null, Func<TData, Exception, object> formatter = null) =>
+            Write(LogLevel.Critical, data, exception, formatter);
 
         public void Dispose() { }
     }

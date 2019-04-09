@@ -6,15 +6,20 @@ namespace XLogger.Adapters.Console
 {
     public class ConsoleLoggerOptions : LoggerOptions
     {
-        //TODO: Implement OutputFormat option
-        //public string OutputFormat { get; set; }
+        public string OutputFormat { get; set; }
+
+        public ConsoleLoggerOptions() : base() =>
+            OutputFormat = @"{@DateTime} [{@LogLevel}] {@Data} {@Exception}";
 
         public override void ReadFromConfiguration(IConfiguration configuration)
         {
             var consoleConfiguration = configuration.GetSection("XLogger:Console");
-            this.LogLevel = (LogLevel)int.Parse(consoleConfiguration[nameof(LogLevel)] ?? this.LogLevel.ToString());
+            
+            var logLevel = consoleConfiguration[nameof(LogLevel)];
+            if (!string.IsNullOrEmpty(logLevel))
+                this.LogLevel = (LogLevel)int.Parse(logLevel);
             this.OnDemand = bool.Parse(consoleConfiguration[nameof(OnDemand)] ?? this.OnDemand.ToString());
-            this.DateTimeFormat = consoleConfiguration[nameof(DateTimeFormat)] ?? this.DateTimeFormat;
+            this.OutputFormat = consoleConfiguration[nameof(OutputFormat)] ?? this.OutputFormat;
         }
     }
 }
