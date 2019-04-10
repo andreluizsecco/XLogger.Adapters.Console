@@ -1,10 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>XLogger.Adapters.Console</PackageId>
+    <Version>1.0.0-preview</Version>
+    <Authors>André Secco</Authors>
+    <Owners>andreluizsecco</Owners>
+    <Product>XLogger.Adapters.Console</Product>
+    <Description>XLogger adapter to write logs in the console</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/andreluizsecco/XLogger.Adapters.Console</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/andreluizsecco/XLogger.Adapters.Console</RepositoryUrl>
+    <PackageIconUrl>https://github.com/andreluizsecco/XLogger.Adapters.Console/raw/master/logo.png</PackageIconUrl>
+    <PackageTags>XLogger Logger Logging Log Adapter Console dotnet .NET</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="XLogger" Version="1.0.0-preview" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
   </ItemGroup>
 

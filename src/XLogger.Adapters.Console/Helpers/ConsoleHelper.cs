@@ -8,6 +8,15 @@ namespace XLogger.Adapters.Console.Helpers
     {
         private static readonly Regex _dateTimeRegex = new Regex(@"(.*){@DateTime:*([^}]*)}(.*)");
 
+        /// <summary>
+        /// Formats entry data, log level and exception based on output format.
+        /// </summary>
+        /// <typeparam name="TData">type of entry.</typeparam>
+        /// <param name="outputFormat"></param>
+        /// <param name="logLevel">Entry will be written on this level.</param>
+        /// <param name="data">The entry to be written. Can be also an object.</param>
+        /// <param name="exception">The exception related to this entry.</param>
+        /// <returns>Formated string</returns>
         public static string FormatOutput<TData>(string outputFormat, LogLevel logLevel, TData data, Exception exception)
         {
             var match = _dateTimeRegex.Match(outputFormat);
