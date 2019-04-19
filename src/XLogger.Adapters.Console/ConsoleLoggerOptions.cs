@@ -24,7 +24,9 @@ namespace XLogger.Adapters.Console
         /// <param name="configuration">Represents a set of key/value application configuration properties. See <see cref="IConfiguration"/>.</param>
         public override void ReadFromConfiguration(IConfiguration configuration)
         {
-            var consoleConfiguration = configuration.GetSection("XLogger:Console");
+            var consoleConfiguration = configuration?.GetSection("XLogger:Console");
+            if (consoleConfiguration == null)
+                throw new System.Exception("Could not load the adapter configuration properties. Make sure the application settings have the XLogger:Console section.");
             
             var logLevel = consoleConfiguration[nameof(LogLevel)];
             if (!string.IsNullOrEmpty(logLevel))
