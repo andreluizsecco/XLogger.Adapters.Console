@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>XLogger.Adapters.Console</PackageId>
-    <Version>1.0.0-preview2</Version>
+    <Version>1.0.0-preview3</Version>
     <Authors>André Secco</Authors>
     <Owners>andreluizsecco</Owners>
     <Product>XLogger.Adapters.Console</Product>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="XLogger" Version="1.0.0-preview2" />
+    <PackageReference Include="XLogger" Version="1.0.0-preview3" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
   </ItemGroup>
 
