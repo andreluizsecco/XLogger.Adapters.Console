@@ -1,4 +1,5 @@
-# XLogger.Adapters.Console
+![](https://raw.githubusercontent.com/andreluizsecco/XLogger.Adapters.Console/dev/logo_horizontal.png)
+
 XLogger adapter to write logs in the console
 
 [![License](https://img.shields.io/github/license/andreluizsecco/XLogger.Adapters.Console.svg)](LICENSE)
