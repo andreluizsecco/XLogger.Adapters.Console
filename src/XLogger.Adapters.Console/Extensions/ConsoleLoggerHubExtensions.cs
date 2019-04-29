@@ -20,13 +20,15 @@ namespace XLogger
 
         /// <summary>
         /// Adds the new console logger with default options to logger hub.
+        /// If a XLogger:Console section exists in the application settings, it will be used.
         /// </summary>
         /// <param name="hub">logger hub instance.</param>
         /// <returns>The logger hub.</returns>
         public static ILoggerHub AddConsole(this ILoggerHub hub)
         {
             var options = new ConsoleLoggerOptions();
-            options.ReadFromConfiguration(hub.Configuration);
+            if (hub.Configuration != null)
+                options.ReadFromConfiguration(hub.Configuration);
             return AddConsole(hub, new ConsoleLogger(options));
         }
 
