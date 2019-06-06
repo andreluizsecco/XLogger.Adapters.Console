@@ -28,9 +28,9 @@ Install-Package XLogger.Adapters.Console
 ```
 dotnet add package XLogger.Adapters.Console
 ```
-## How to Use
+## Documentation
 
-Check the our Wiki: [https://github.com/andreluizsecco/XLogger.Adapters.Console/wiki/get-started](https://github.com/andreluizsecco/XLogger.Adapters.Console/wiki/get-started)
+Check the our Wiki: [https://github.com/andreluizsecco/XLogger.Adapters.Console/wiki](https://github.com/andreluizsecco/XLogger.Adapters.Console/wiki)
 
 ## Roadmap
 
